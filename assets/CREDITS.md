@@ -30,7 +30,9 @@ The six game links open their respective official websites. Game names and brand
 - CS:GO: the existing Simple Icons brand mark described above; links to Valve's CS:GO about page.
 - Identity V: official logo served from the NetEase Store collection image, https://neteasestore.com/cdn/shop/collections/BlackJack.png?v=1721358510.
 - PEAK: official Steam library logo, https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3527290/7df31d9d967539cfcb161cea0a69edca82f04cdb/logo.png; links to https://peakpeakpeak.com/.
-- Terraria: monochrome tree icon from [Arcticons](https://github.com/Arcticons-Team/Arcticons/blob/main/icons/black/terraria.svg), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Artwork is unmodified and is a community icon rendition.
-- Minecraft: brand mark from https://cdn.jsdelivr.net/npm/simple-icons@9.21.0/icons/minecraft.svg.
+- Terraria: the game link uses the unmodified colored Papirus terraria.svg tree icon. The previous Arcticons monochrome icon is retained as an unused source asset under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- Minecraft: the game link uses the unmodified colored Papirus minecraft.svg grass block icon. The earlier Simple Icons word mark is retained as an unused source asset.
 
-Remote logo images retain their source artwork and use a grayscale presentation. The white PEAK mark is displayed in black through CSS for contrast on the ivory card.
+Game logo images retain their source colors without grayscale or recoloring filters. The original white PEAK mark is placed on a dark backdrop for contrast on the ivory card.
+
+The two colored SVG game icons are community renditions from [Papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/tree/master/Papirus/64x64/apps), licensed under GPL-3.0. Verbatim source SVGs are provided in this repository; their license text is included in [PAPIRUS-LICENSE.txt](PAPIRUS-LICENSE.txt). This license applies to those Papirus assets. Source files: terraria.svg, minecraft.svg. Brand rights remain with the respective game owners.
