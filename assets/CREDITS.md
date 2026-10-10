@@ -20,3 +20,17 @@ CS:GO and DeepSeek brand mark shapes are supplied as monochrome SVGs by Simple I
 Brand marks remain the property of their respective owners. This personal site is not affiliated with Valve or DeepSeek.
 
 The black-and-white furry paw icon was generated for this website and stored as a lossless WebP with transparency.
+
+
+# Game links and logos
+
+The six game links open their respective official websites. Game names and brand marks belong to their respective owners; the personal site is not affiliated with them.
+
+- Muse Dash: official Steam library logo, served from https://shared.steamstatic.com/store_item_assets/steam/apps/774171/logo_2x.png.
+- CS:GO: the existing Simple Icons brand mark described above; links to Valve's CS:GO about page.
+- Identity V: official logo served from the NetEase Store collection image, https://neteasestore.com/cdn/shop/collections/BlackJack.png?v=1721358510.
+- PEAK: official Steam library logo, https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3527290/7df31d9d967539cfcb161cea0a69edca82f04cdb/logo.png; links to https://peakpeakpeak.com/.
+- Terraria: monochrome tree icon from [Arcticons](https://github.com/Arcticons-Team/Arcticons/blob/main/icons/black/terraria.svg), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Artwork is unmodified and is a community icon rendition.
+- Minecraft: brand mark from https://cdn.jsdelivr.net/npm/simple-icons@9.21.0/icons/minecraft.svg.
+
+Remote logo images retain their source artwork and use a grayscale presentation. The white PEAK mark is displayed in black through CSS for contrast on the ivory card.
