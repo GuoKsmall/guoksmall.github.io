@@ -36,3 +36,8 @@ The six game links open their respective official websites. Game names and brand
 Game logo images retain their source colors without grayscale or recoloring filters. The original white PEAK mark is placed on a dark backdrop for contrast on the ivory card.
 
 The two colored SVG game icons are community renditions from [Papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/tree/master/Papirus/64x64/apps), licensed under GPL-3.0. Verbatim source SVGs are provided in this repository; their license text is included in [PAPIRUS-LICENSE.txt](PAPIRUS-LICENSE.txt). This license applies to those Papirus assets. Source files: terraria.svg, minecraft.svg. Brand rights remain with the respective game owners.
+
+
+# Portal contact decoration
+
+portal-contact.svg is an original vector illustration of paired blue/orange portals and a heart-marked companion cube, inspired by Valve's Portal game. It is a fan decoration for the personal site's contact section. Portal and the companion cube design belong to Valve; this is not an official Valve asset.
