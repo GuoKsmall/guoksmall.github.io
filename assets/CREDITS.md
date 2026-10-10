@@ -19,7 +19,7 @@ CS:GO and DeepSeek brand mark shapes are supplied as monochrome SVGs by Simple I
 
 Brand marks remain the property of their respective owners. This personal site is not affiliated with Valve or DeepSeek.
 
-The black-and-white furry paw icon was generated for this website and stored as a lossless WebP with transparency.
+The displayed solid-black paw icon is the unmodified [Font Awesome Free paw icon](https://github.com/FortAwesome/Font-Awesome/blob/6.x/svgs/solid/paw.svg), © Fonticons, Inc., licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The earlier generated black-and-white furry paw WebP is retained as an unused source asset.
 
 
 # Game links and logos
