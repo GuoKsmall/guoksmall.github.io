@@ -26,14 +26,14 @@ The displayed solid-black paw icon is the unmodified [Font Awesome Free paw icon
 
 The six game links open their respective official websites. Game names and brand marks belong to their respective owners; the personal site is not affiliated with them.
 
-- Muse Dash: the current design uses an original text badge reading MD. The earlier version used an official Steam library logo from https://shared.steamstatic.com/store_item_assets/steam/apps/774171/logo_2x.png.
+- Muse Dash: official Steam community app icon, linked from the publisher's [Steam store page](https://store.steampowered.com/app/774171/Muse_Dash/): https://shared.fastly.steamstatic.com/community_assets/images/apps/774171/116c4098769bb51aed2d654f2943771b68c29afa.jpg.
 - CS:GO: the existing Simple Icons brand mark described above; links to Valve's CS:GO about page.
-- Identity V: the current design uses an original text badge reading V. The earlier version used a NetEase Store collection image from https://neteasestore.com/cdn/shop/collections/BlackJack.png?v=1721358510.
-- PEAK: the current design uses an original text badge reading PEAK and links to https://peakpeakpeak.com/. The earlier version used an official Steam library logo from https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3527290/7df31d9d967539cfcb161cea0a69edca82f04cdb/logo.png.
-- Terraria: the game link uses the unmodified colored Papirus terraria.svg tree icon. The previous Arcticons monochrome icon is retained as an unused source asset under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
-- Minecraft: the game link uses the unmodified colored Papirus minecraft.svg grass block icon. The earlier Simple Icons word mark is retained as an unused source asset.
+- Identity V: the app icon distributed for NetEase's [official App Store release](https://apps.apple.com/cn/app/id1330863325), served by Apple's image CDN: https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/16/1e/4b/161e4b07-f410-fd20-42d8-4809ca8fea01/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/400x400ia-75.webp. The Chinese and [global official website](https://www.identityvgame.com/) identify the same game and publisher.
+- PEAK: official Steam community app icon, linked from the [official Steam store page](https://store.steampowered.com/app/3527290/PEAK/): https://shared.akamai.steamstatic.com/community_assets/images/apps/3527290/b3a992fd5991bd2f4c956d58e062b0ce2988d6cd.jpg.
+- Terraria: the unmodified colored Papirus terraria.svg tree icon. The previous Arcticons monochrome icon is retained as an unused source asset under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- Minecraft: the unmodified colored Papirus minecraft.svg grass block icon. The earlier Simple Icons word mark is retained as an unused source asset.
 
-Colored Terraria and Minecraft icons retain their source colors. The monochrome CS:GO mark is inverted for legibility in dark mode. The current page loads all displayed artwork locally and makes no third-party image requests.
+The three official app icons are loaded directly from Steam and Apple's CDNs; the remaining displayed artwork is local. Colored Terraria and Minecraft icons retain their source colors. The monochrome CS:GO mark is inverted for legibility in dark mode. The six personal card labels do not change their game destinations or accessible game names.
 
 The two colored SVG game icons are community renditions from [Papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/tree/master/Papirus/64x64/apps), licensed under GPL-3.0. Verbatim source SVGs are provided in this repository; their license text is included in [PAPIRUS-LICENSE.txt](PAPIRUS-LICENSE.txt). This license applies to those Papirus assets. Source files: terraria.svg, minecraft.svg. Brand rights remain with the respective game owners.
 

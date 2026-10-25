@@ -37,17 +37,14 @@ export function skyState(hour) {
 if (typeof document !== 'undefined') {
   const card = document.querySelector('.sky-card');
   const clock = card.querySelector('.world-clock');
-  const range = card.querySelector('.time-range');
-  const output = card.querySelector('.time-output');
   const format = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Asia/Shanghai', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
   });
-  let preview = null;
   function render() {
     const parts = format.format(new Date()).split(':').map(Number);
-    const hour = preview === null ? parts[0] + parts[1] / 60 + parts[2] / 3600 : preview / 60;
+    const hour = parts[0] + parts[1] / 60 + parts[2] / 3600;
     const state = skyState(hour);
-    const minutes = preview === null ? parts[0] * 60 + parts[1] : preview;
+    const minutes = parts[0] * 60 + parts[1];
     const time = `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
     for (const [name, value] of Object.entries(state.colors)) card.style.setProperty('--' + name, value);
     card.style.setProperty('--star-opacity', String(1 - state.daylight));
@@ -56,13 +53,7 @@ if (typeof document !== 'undefined') {
     card.style.setProperty('--celestial-y', state.y + 'px');
     card.dataset.period = state.day ? 'day' : 'night';
     clock.textContent = `${state.day ? '☀' : '☾'} ${time} · ${state.label}`;
-    card.querySelector('.world-mode').textContent = preview === null ? '北京时间 / 此刻' : '时光预览 / 北京时间';
-    output.textContent = time;
-    range.setAttribute('aria-valuetext', `北京时间 ${time}，${state.label}`);
-    if (preview === null) range.value = String(minutes);
   }
-  range.addEventListener('input', () => { preview = Number(range.value); render(); });
-  card.querySelector('.time-reset').addEventListener('click', () => { preview = null; render(); });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
   render();
   setInterval(render, 30000);

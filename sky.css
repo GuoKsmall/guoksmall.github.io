@@ -1,4 +1,5 @@
 .sky-card {
+  display: flex;
   --sky-top: #101b39;
   --sky-mid: #344566;
   --sky-horizon: #b9c1d1;
@@ -9,13 +10,12 @@
   --celestial-x: 50%;
   --celestial-y: 60px;
 }
-.sky-scene { position: relative; height: 232px; isolation: isolate; overflow: hidden; color: #fff; }
+.sky-scene { position: relative; min-height: 300px; flex: 1; isolation: isolate; overflow: hidden; color: #fff; }
 .world { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; background: linear-gradient(var(--sky-top), var(--sky-mid) 65%, var(--sky-horizon)); }
 .sky-scene::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 45%, #1123388c); pointer-events: none; z-index: -1; }
 .stars { position: absolute; inset: 0; opacity: var(--star-opacity); }
-.stars i { position: absolute; width: 2px; height: 2px; background: #e0f1f8; box-shadow: 0 0 4px #d6edf655; }
-.stars i:nth-child(7n) { width: 3px; height: 3px; }
-.stars i:nth-child(11n) { box-shadow: 0 -3px #d6edf677, 0 3px #d6edf677, 3px 0 #d6edf677, -3px 0 #d6edf677; }
+.stars i { position: absolute; width: var(--star-size, 1px); height: var(--star-size, 1px); background: #e0f1f8; box-shadow: 0 0 3px #d6edf633; }
+.stars .cross-star { box-shadow: 0 -2px #d6edf644, 0 2px #d6edf644, 2px 0 #d6edf644, -2px 0 #d6edf644; }
 .celestial { position: absolute; left: var(--celestial-x); top: var(--celestial-y); width: 96px; height: 96px; transform: translate(-50%, -50%); mix-blend-mode: screen; image-rendering: pixelated; transition: left 1s linear, top 1s linear; }
 .sun, .moon { width: 100%; height: 100%; }
 .sun { background: url('assets/minecraft-sun.png') center/100% 100%; display: none; }
@@ -33,20 +33,10 @@
 .tree { fill: var(--sky-top); }
 .sky-heading { position: absolute; top: 19px; left: 22px; right: 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; }
 .sky-card[data-period="day"] .sky-heading { color: #243b48; }
-.sky-live { display: inline-flex; align-items: center; gap: 7px; font-size: 7px; letter-spacing: .4px; }
-.sky-live .status-dot { background: currentColor; box-shadow: none; width: 4px; height: 4px; }
 .sky-caption { position: absolute; left: 22px; right: 22px; bottom: 18px; display: flex; flex-direction: column; gap: 4px; }
 .world-clock { font: 17px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .8px; }
 .sky-caption > span:last-child { font-size: 8px; color: #ffffffcf; letter-spacing: .4px; }
-.sky-controls { padding: 16px 22px 15px; }
-.sky-control-title { display: flex; gap: 9px; align-items: center; color: var(--muted); font-size: 9px; }
-.time-output { color: var(--ink); font: 9px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
-.time-reset { border: 0; background: transparent; color: var(--muted); padding: 0; margin-left: auto; font-size: 8px; }
-.time-reset span { margin-left: 2px; }
-.time-reset:hover { color: var(--ink); }
-.time-range { display: block; width: 100%; margin: 12px 0 7px; height: 12px; accent-color: var(--accent); cursor: ew-resize; }
-.sky-scale { display: flex; justify-content: space-between; color: var(--faint); font: 6px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
 @keyframes drift { to { transform: translateX(24px); } }
-@media (max-width: 1000px) { .sky-heading, .sky-caption { left: 17px; right: 17px; } .sky-controls { padding-inline: 17px; } .sky-live { font-size: 6px; gap: 4px; } .sky-control-title { font-size: 8px; gap: 6px; } .time-reset { font-size: 7px; } }
-@media (max-width: 720px) { .sky-scene { height: 215px; } .sky-heading, .sky-caption { left: 21px; right: 21px; } .sky-controls { padding: 15px 21px; } .sky-live { font-size: 7px; } .sky-control-title { font-size: 9px; } .time-reset { font-size: 8px; } }
+@media (max-width: 1000px) { .sky-heading, .sky-caption { left: 17px; right: 17px; } }
+@media (max-width: 720px) { .sky-scene { min-height: 260px; } .sky-heading, .sky-caption { left: 21px; right: 21px; } }
 @media (prefers-reduced-motion: reduce) { .cloud { animation: none; } .celestial { transition: none; } }
