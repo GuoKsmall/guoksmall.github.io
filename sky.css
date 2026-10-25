@@ -1,14 +1,52 @@
-:root{--sky-top:#101b39;--sky-mid:#344566;--sky-horizon:#b9c1d1;--mountain-far:#1e293d;--mountain-near:#172e42;--paper-rgb:48,33,42;--paper:rgba(48,33,42,.93);--bg:#101b39;--ink:#fff0e7;--muted:#d9bdb0;--accent:#ffb6a2;--soft:#432d35;--line:#795662;--shadow:0 18px 55px #35201d1c;--star-opacity:1;--cloud-opacity:.15;--celestial-x:50%;--celestial-y:60px}
-body{isolation:isolate;background:var(--sky-top)}.world{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:linear-gradient(var(--sky-top) 0%,var(--sky-mid) 65%,var(--sky-horizon) 100%)}
-.stars{position:absolute;inset:0;opacity:var(--star-opacity)}.stars i{position:absolute;width:2px;height:2px;background:#e0f1f8;box-shadow:0 0 4px #d6edf655}.stars i:nth-child(7n){width:3px;height:3px}.stars i:nth-child(11n){box-shadow:0 -3px #d6edf677,0 3px #d6edf677,3px 0 #d6edf677,-3px 0 #d6edf677}
-.celestial{position:absolute;left:var(--celestial-x);top:var(--celestial-y);width:192px;height:192px;transform:translate(-50%,-50%);mix-blend-mode:screen;image-rendering:pixelated;transition:left 1s linear,top 1s linear}.sun{width:100%;height:100%;background:url('assets/minecraft-sun.png') center/100% 100%;display:none}.moon{width:100%;height:100%;background:url('assets/minecraft-moon_phases.png') 0 0/400% 200%;display:block}body[data-period=day] .sun{display:block}body[data-period=day] .moon{display:none}
-.clouds{position:absolute;inset:0;opacity:var(--cloud-opacity)}.cloud{position:absolute;width:100px;height:16px;background:#f8faf1;box-shadow:24px -16px #f8faf1,56px -16px #f8faf1,80px 0 #f8faf1,24px 16px #eef0e7;animation:drift 30s ease-in-out infinite alternate}.cloud:nth-child(1){left:9%;top:198px;scale:.8}.cloud:nth-child(2){right:17%;top:130px;scale:1.15;animation-delay:-12s}.cloud:nth-child(3){left:57%;top:225px;scale:.55;animation-delay:-20s}
-.hills{position:absolute;bottom:0;left:0;width:100%;height:35vh;min-height:200px;max-height:360px;image-rendering:pixelated}.far-hill{fill:var(--mountain-far)}.near-hill{fill:var(--mountain-near)}.tree{fill:var(--sky-top)}
-header{background:transparent;border:0}.nav{height:84px}.brandname small,nav a{color:var(--ink)}.brand-avatar{background:var(--paper)}.wrap{width:min(1080px,calc(100% - 64px))}.world-bar{display:flex;justify-content:space-between;align-items:center;position:relative;margin:140px 0 22px;font-size:12px;color:var(--ink)}.world-mode{font-size:9px;letter-spacing:2px;opacity:.8;display:block}.world-clock{font-size:16px;letter-spacing:2px;font-family:Consolas,monospace;line-height:1.5}.sky-settings{position:relative;z-index:3}.sky-settings summary{cursor:pointer;list-style:none;font-size:11px;border-bottom:1px solid currentColor;padding:5px 0}.sky-settings summary::-webkit-details-marker{display:none}.time-panel{position:absolute;right:0;top:40px;width:260px;padding:20px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 35px #0002;backdrop-filter:blur(16px)}.time-panel label{display:flex;align-items:center;justify-content:space-between}.time-panel input{width:100%;accent-color:var(--accent);margin:18px 0 10px}.time-panel p{font-size:10px;color:var(--muted);margin:0 0 14px}.time-reset{border:1px solid var(--line);padding:6px 12px;border-radius:5px;background:var(--soft);color:var(--ink);font-size:11px}
-.draft{display:none}.hero,.section{background:linear-gradient(135deg,#ffb99b1c,transparent 55%),var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:0 16px 50px #35201d1c,inset 0 1px 0 #ffffff12;backdrop-filter:blur(12px);margin-bottom:24px}.hero{padding:42px 40px 58px;gap:42px}.hero h1{font-size:clamp(40px,4.5vw,58px)}.postcard{max-width:360px;background:rgba(var(--paper-rgb),.95)}.annotation{right:0;font-size:9px}.section{padding:38px 40px}.primary{background:var(--accent);color:rgb(var(--paper-rgb))}.sectiontop small{font-size:9px}.postcard-bottom span{font-size:13px}.postcard-bottom small{font-size:7px}.lightbox{background:rgb(var(--paper-rgb))}footer{border:0;padding:12px 0 30px}.footerin{align-items:center}.asset-source{font-size:9px;letter-spacing:.5px}.contactlinks a{background:var(--soft)}
-.hero,.section,.postcard,.time-panel,.lightbox{--paper-rgb:255,250,243;--paper:#fffaf3;--ink:#463d35;--muted:#786758;--accent:#a94359;--soft:#f1e7dc;--line:#e3d6c6;color:var(--ink);color-scheme:only light;background:linear-gradient(145deg,#fffefb 0%,#fbf7ef 50%,#f2eadd 100%)}
-.tape{background:#e9bda799}.herofoot:before{background:#d99369}::selection{background:#f6c1b9;color:#49322c}
-@keyframes drift{to{transform:translateX(24px)}}
-@media(max-width:850px){nav{gap:20px}.hero{padding:30px 26px 50px;gap:26px}.section{padding:32px 26px}.hero h1{font-size:42px}.aboutgrid{grid-template-columns:120px 1fr;gap:25px}}
-@media(max-width:600px){.wrap{width:calc(100% - 32px)}.nav{height:76px}nav{gap:13px}.world-bar{margin-top:133px;margin-bottom:18px}.world-clock{font-size:14px}.world-mode{font-size:8px}.celestial{width:160px;height:160px}.hero{padding:30px 22px 48px;gap:32px;border-radius:12px}.hero h1{font-size:42px}.postcard{width:96%;max-width:300px}.annotation{font-size:8px}.section{padding:30px 22px;border-radius:12px}.sectiontop{gap:10px}.sectiontop small{font-size:8px;letter-spacing:1px;white-space:nowrap}h2{font-size:21px}.aboutgrid{grid-template-columns:1fr;gap:22px}.albumintro{align-items:flex-end}.filters{gap:6px}.filters button{padding:6px 8px}.filters button small{margin-left:3px}.memorygrid{gap:14px 10px}.footerin{flex-wrap:wrap;gap:8px}.time-panel{width:240px}.cloud:nth-child(1){left:-8%}.cloud:nth-child(2){right:5%;scale:.65}.cloud:nth-child(3){display:none}}
-@media(prefers-reduced-motion:reduce){.cloud{animation:none}.celestial,.hero,.section{transition:none}}
+.sky-card {
+  --sky-top: #101b39;
+  --sky-mid: #344566;
+  --sky-horizon: #b9c1d1;
+  --mountain-far: #1e293d;
+  --mountain-near: #172e42;
+  --star-opacity: 1;
+  --cloud-opacity: .15;
+  --celestial-x: 50%;
+  --celestial-y: 60px;
+}
+.sky-scene { position: relative; height: 232px; isolation: isolate; overflow: hidden; color: #fff; }
+.world { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; background: linear-gradient(var(--sky-top), var(--sky-mid) 65%, var(--sky-horizon)); }
+.sky-scene::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 45%, #1123388c); pointer-events: none; z-index: -1; }
+.stars { position: absolute; inset: 0; opacity: var(--star-opacity); }
+.stars i { position: absolute; width: 2px; height: 2px; background: #e0f1f8; box-shadow: 0 0 4px #d6edf655; }
+.stars i:nth-child(7n) { width: 3px; height: 3px; }
+.stars i:nth-child(11n) { box-shadow: 0 -3px #d6edf677, 0 3px #d6edf677, 3px 0 #d6edf677, -3px 0 #d6edf677; }
+.celestial { position: absolute; left: var(--celestial-x); top: var(--celestial-y); width: 96px; height: 96px; transform: translate(-50%, -50%); mix-blend-mode: screen; image-rendering: pixelated; transition: left 1s linear, top 1s linear; }
+.sun, .moon { width: 100%; height: 100%; }
+.sun { background: url('assets/minecraft-sun.png') center/100% 100%; display: none; }
+.moon { background: url('assets/minecraft-moon_phases.png') 0 0/400% 200%; }
+.sky-card[data-period="day"] .sun { display: block; }
+.sky-card[data-period="day"] .moon { display: none; }
+.clouds { position: absolute; inset: 0; opacity: var(--cloud-opacity); }
+.cloud { position: absolute; width: 100px; height: 16px; background: #f8faf1; box-shadow: 24px -16px #f8faf1, 56px -16px #f8faf1, 80px 0 #f8faf1, 24px 16px #eef0e7; animation: drift 30s ease-in-out infinite alternate; }
+.cloud:nth-child(1) { left: -4%; top: 100px; scale: .35; }
+.cloud:nth-child(2) { right: 15%; top: 75px; scale: .45; animation-delay: -12s; }
+.cloud:nth-child(3) { left: 48%; top: 140px; scale: .25; animation-delay: -20s; }
+.hills { position: absolute; bottom: -1px; left: 0; width: 100%; height: 130px; image-rendering: pixelated; }
+.far-hill { fill: var(--mountain-far); }
+.near-hill { fill: var(--mountain-near); }
+.tree { fill: var(--sky-top); }
+.sky-heading { position: absolute; top: 19px; left: 22px; right: 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; }
+.sky-card[data-period="day"] .sky-heading { color: #243b48; }
+.sky-live { display: inline-flex; align-items: center; gap: 7px; font-size: 7px; letter-spacing: .4px; }
+.sky-live .status-dot { background: currentColor; box-shadow: none; width: 4px; height: 4px; }
+.sky-caption { position: absolute; left: 22px; right: 22px; bottom: 18px; display: flex; flex-direction: column; gap: 4px; }
+.world-clock { font: 17px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .8px; }
+.sky-caption > span:last-child { font-size: 8px; color: #ffffffcf; letter-spacing: .4px; }
+.sky-controls { padding: 16px 22px 15px; }
+.sky-control-title { display: flex; gap: 9px; align-items: center; color: var(--muted); font-size: 9px; }
+.time-output { color: var(--ink); font: 9px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.time-reset { border: 0; background: transparent; color: var(--muted); padding: 0; margin-left: auto; font-size: 8px; }
+.time-reset span { margin-left: 2px; }
+.time-reset:hover { color: var(--ink); }
+.time-range { display: block; width: 100%; margin: 12px 0 7px; height: 12px; accent-color: var(--accent); cursor: ew-resize; }
+.sky-scale { display: flex; justify-content: space-between; color: var(--faint); font: 6px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+@keyframes drift { to { transform: translateX(24px); } }
+@media (max-width: 1000px) { .sky-heading, .sky-caption { left: 17px; right: 17px; } .sky-controls { padding-inline: 17px; } .sky-live { font-size: 6px; gap: 4px; } .sky-control-title { font-size: 8px; gap: 6px; } .time-reset { font-size: 7px; } }
+@media (max-width: 720px) { .sky-scene { height: 215px; } .sky-heading, .sky-caption { left: 21px; right: 21px; } .sky-controls { padding: 15px 21px; } .sky-live { font-size: 7px; } .sky-control-title { font-size: 9px; } .time-reset { font-size: 8px; } }
+@media (prefers-reduced-motion: reduce) { .cloud { animation: none; } .celestial { transition: none; } }
