@@ -65,7 +65,6 @@ nav a:hover, nav a:focus-visible { color: var(--ink); background: var(--surface)
 [data-theme="dark"] .sun-icon { display: block; }
 .hero { padding-top: 76px; padding-bottom: 45px; text-align: center; }
 .welcome { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 6px 13px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 10px; letter-spacing: .4px; }
-.welcome-separator { color: var(--strong-line); margin-inline: 2px; }
 .status-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #75a68d; flex: none; box-shadow: 0 0 0 3px #75a68d14; }
 h1 { margin-top: 24px; font-size: clamp(46px, 5.6vw, 76px); font-weight: 620; line-height: 1.25; letter-spacing: -3.8px; }
 .gradient-text { background: var(--gradient); background-clip: text; -webkit-background-clip: text; color: transparent; }
@@ -81,7 +80,7 @@ h1 { margin-top: 24px; font-size: clamp(46px, 5.6vw, 76px); font-weight: 620; li
 .avatar { margin-top: 16px; width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 6px solid #ffffffa6; box-shadow: 0 4px 15px #29212e09; }
 .profile-preview h2 { margin-top: 10px; font-size: 20px; font-weight: 600; letter-spacing: -.5px; }
 .profile-preview h2 span { font-size: 14px; color: var(--muted); font-weight: 450; }
-.profile-preview p { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.profile-preview p { font-size: 18px; margin-top: 3px; }
 .profile-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; margin: 16px 0 21px; }
 .profile-tags span { border: 1px solid color-mix(in srgb, var(--line), transparent 15%); border-radius: 8px; background: color-mix(in srgb, var(--surface), transparent 45%); padding: 2px 9px; font-size: 9px; color: var(--muted); }
 .card-bottom-link { display: flex; justify-content: space-between; align-self: stretch; margin-top: auto; border-top: 1px solid color-mix(in srgb, var(--strong-line), transparent 55%); padding: 14px 0 17px; font-size: 10px; color: var(--muted); }
@@ -121,22 +120,16 @@ h1 { margin-top: 24px; font-size: clamp(46px, 5.6vw, 76px); font-weight: 620; li
 .game-icon { display: grid; place-items: center; width: 33px; flex: none; }
 .game-icon img { width: 30px; height: 30px; object-fit: contain; }
 .game-name { font-size: 11px; font-weight: 550; white-space: nowrap; }
-.game-name small { display: block; font-size: 8px; font-weight: 400; color: var(--faint); margin-top: 3px; white-space: normal; }
 .link-arrow { color: var(--faint); margin-left: auto; font-size: 14px; flex: none; }
 .game-link .link-arrow { align-self: start; font-size: 11px; }
-.game-monogram { display: grid; place-items: center; font: 750 13px/1 Arial, sans-serif; border-radius: 9px; width: 32px; height: 32px; }
-.rhythm { color: #b72e77; background: #fbe7f3; font-style: italic; }
-.identity { color: #e7dec4; background: #302c31; font-family: Georgia, serif; font-size: 23px; }
-.peak { font-size: 9px; color: #38302b; background: #e9e2cf; transform: rotate(-5deg); }
+.game-icon .official-icon { border-radius: 7px; }
 .other-interests { display: grid; grid-template-rows: 1fr 1fr; gap: 18px; }
 .interest-card { position: relative; padding: 26px 28px; }
 .interest-card h3 { font-size: 21px; margin-top: 5px; }
 .interest-heading img { object-fit: contain; }
 .ai-card { background: var(--wash); }
 .ai-decoration { margin-top: 22px; display: flex; justify-content: space-between; align-items: center; border: 1px solid color-mix(in srgb, var(--line), transparent 20%); border-radius: 13px; background: color-mix(in srgb, var(--surface), transparent 35%); padding: 11px 13px; color: var(--muted); font: 10px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
-.ai-decoration span:last-child { font-size: 9px; }
 .ai-decoration i { color: var(--accent); font-size: 15px; font-style: normal; margin-left: 8px; }
-.cursor { color: var(--accent); }
 .furry-card { background: var(--soft); }
 .interest-footnote { display: inline-block; margin-top: 24px; font-size: 7px; letter-spacing: 1px; color: var(--faint); }
 [data-theme="dark"] .interest-heading img[src$="paw-solid.svg"], [data-theme="dark"] .game-icon img[src$="csgo.svg"] { filter: invert(.9); }
@@ -208,7 +201,6 @@ body:has(dialog[open]) { overflow: hidden; }
   .games-card { padding: 24px; }
   .game-links { grid-template-columns: 1fr; gap: 7px; margin-top: 20px; }
   .game-link { padding: 10px 12px; }
-  .game-name small { display: inline; margin-left: 10px; }
   .game-link .link-arrow { align-self: center; }
   .other-interests { grid-template-rows: 1fr 1fr; }
   .interest-card { padding: 24px; }
@@ -242,7 +234,7 @@ body:has(dialog[open]) { overflow: hidden; }
   .profile-preview .avatar { margin-top: 12px; width: 84px; height: 84px; border-width: 5px; }
   .profile-preview h2 { font-size: 18px; }
   .profile-preview h2 span { font-size: 11px; }
-  .profile-preview p { font-size: 9px; }
+  .profile-preview p { font-size: 17px; }
   .profile-tags { margin: 12px 0 15px; }
   .profile-tags span { font-size: 8px; padding: 2px 6px; }
   .card-kicker { font-size: 7px; letter-spacing: .9px; }
@@ -269,12 +261,8 @@ body:has(dialog[open]) { overflow: hidden; }
   .game-links { grid-template-columns: 1fr 1fr; gap: 8px; }
   .game-link { padding: 13px 10px; gap: 9px; border-radius: 14px; }
   .game-name { font-size: 10px; }
-  .game-name small { display: block; margin-left: 0; font-size: 7px; }
-  .game-icon, .game-monogram { width: 27px; }
+  .game-icon { width: 27px; }
   .game-icon img { width: 25px; height: 25px; }
-  .game-monogram { height: 27px; font-size: 11px; }
-  .game-monogram.peak { font-size: 8px; }
-  .game-monogram.identity { font-size: 22px; }
   .game-link .link-arrow { display: none; }
   .other-interests { gap: 12px; grid-template-rows: auto auto; }
   .interest-card { padding: 23px; }
