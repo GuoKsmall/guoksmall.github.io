@@ -26,14 +26,14 @@ The displayed solid-black paw icon is the unmodified [Font Awesome Free paw icon
 
 The six game links open their respective official websites. Game names and brand marks belong to their respective owners; the personal site is not affiliated with them.
 
-- Muse Dash: official Steam library logo, served from https://shared.steamstatic.com/store_item_assets/steam/apps/774171/logo_2x.png.
+- Muse Dash: the current design uses an original text badge reading MD. The earlier version used an official Steam library logo from https://shared.steamstatic.com/store_item_assets/steam/apps/774171/logo_2x.png.
 - CS:GO: the existing Simple Icons brand mark described above; links to Valve's CS:GO about page.
-- Identity V: official logo served from the NetEase Store collection image, https://neteasestore.com/cdn/shop/collections/BlackJack.png?v=1721358510.
-- PEAK: official Steam library logo, https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3527290/7df31d9d967539cfcb161cea0a69edca82f04cdb/logo.png; links to https://peakpeakpeak.com/.
+- Identity V: the current design uses an original text badge reading V. The earlier version used a NetEase Store collection image from https://neteasestore.com/cdn/shop/collections/BlackJack.png?v=1721358510.
+- PEAK: the current design uses an original text badge reading PEAK and links to https://peakpeakpeak.com/. The earlier version used an official Steam library logo from https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3527290/7df31d9d967539cfcb161cea0a69edca82f04cdb/logo.png.
 - Terraria: the game link uses the unmodified colored Papirus terraria.svg tree icon. The previous Arcticons monochrome icon is retained as an unused source asset under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 - Minecraft: the game link uses the unmodified colored Papirus minecraft.svg grass block icon. The earlier Simple Icons word mark is retained as an unused source asset.
 
-Game logo images retain their source colors without grayscale or recoloring filters. The original white PEAK mark is placed on a dark backdrop for contrast on the ivory card.
+Colored Terraria and Minecraft icons retain their source colors. The monochrome CS:GO mark is inverted for legibility in dark mode. The current page loads all displayed artwork locally and makes no third-party image requests.
 
 The two colored SVG game icons are community renditions from [Papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/tree/master/Papirus/64x64/apps), licensed under GPL-3.0. Verbatim source SVGs are provided in this repository; their license text is included in [PAPIRUS-LICENSE.txt](PAPIRUS-LICENSE.txt). This license applies to those Papirus assets. Source files: terraria.svg, minecraft.svg. Brand rights remain with the respective game owners.
 
