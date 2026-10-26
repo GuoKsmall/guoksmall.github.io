@@ -35,7 +35,6 @@
 .sky-card[data-period="day"] .sky-heading { color: #243b48; }
 .sky-caption { position: absolute; left: 22px; right: 22px; bottom: 18px; display: flex; flex-direction: column; gap: 4px; }
 .world-clock { font: 17px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .8px; }
-.sky-caption > span:last-child { font-size: 8px; color: #ffffffcf; letter-spacing: .4px; }
 @keyframes drift { to { transform: translateX(24px); } }
 @media (max-width: 1000px) { .sky-heading, .sky-caption { left: 17px; right: 17px; } }
 @media (max-width: 720px) { .sky-scene { min-height: 260px; } .sky-heading, .sky-caption { left: 21px; right: 21px; } }
