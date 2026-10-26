@@ -3,7 +3,7 @@ function updateThemeButton() {
   const dark = document.documentElement.dataset.theme === 'dark';
   themeToggle.setAttribute('aria-pressed', String(dark));
   themeToggle.setAttribute('aria-label', dark ? '切换到浅色模式' : '切换到深色模式');
-  document.querySelector('meta[name="theme-color"]').content = dark ? '#18181b' : '#ffffff';
+  document.querySelector('meta[name="theme-color"]').content = dark ? '#131313' : '#ffffff';
 }
 themeToggle.addEventListener('click', () => {
   const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
