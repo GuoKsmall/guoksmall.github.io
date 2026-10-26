@@ -1,3 +1,68 @@
+
+// Keep native details semantics, and let CSS animate the content before closing it.
+const gallery = document.querySelector('.gallery-disclosure');
+const gallerySummary = gallery.querySelector('summary');
+const galleryContent = gallery.querySelector('.gallery-content');
+gallery.dataset.expanded = String(gallery.open);
+gallerySummary.setAttribute('aria-expanded', String(gallery.open));
+galleryContent.inert = !gallery.open;
+gallerySummary.addEventListener('click', event => {
+  event.preventDefault();
+  const expand = gallery.dataset.expanded !== 'true';
+  if (expand) {
+    gallery.open = true;
+    galleryContent.getBoundingClientRect(); // Commit the collapsed grid before transitioning.
+  }
+  gallery.dataset.expanded = String(expand);
+  gallerySummary.setAttribute('aria-expanded', String(expand));
+  galleryContent.inert = !expand;
+});
+galleryContent.addEventListener('transitionend', event => {
+  if (event.target === galleryContent && event.propertyName === 'grid-template-rows' && gallery.dataset.expanded === 'false') gallery.open = false;
+});
+
+// One interruptible scroll path for the navigation, greeting, and in-page links.
+let scrollFrame = 0;
+function cancelPageScroll() {
+  cancelAnimationFrame(scrollFrame);
+  scrollFrame = 0;
+}
+for (const name of ['wheel', 'touchstart']) window.addEventListener(name, cancelPageScroll, { passive: true });
+window.addEventListener('keydown', event => {
+  if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) cancelPageScroll();
+});
+document.addEventListener('click', event => {
+  const link = event.target.closest('a[href^="#"]');
+  if (!link || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  const target = document.getElementById(link.hash.slice(1));
+  if (!target) return;
+  event.preventDefault();
+  cancelPageScroll();
+  const from = window.scrollY;
+  const padding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+  const to = Math.max(0, Math.min(target.getBoundingClientRect().top + from - padding, document.documentElement.scrollHeight - window.innerHeight));
+  const duration = Math.min(1100, 650 + Math.abs(to - from) * .12);
+  const started = performance.now();
+  if (location.hash !== link.hash) history.pushState(null, '', link.hash);
+  document.querySelectorAll('nav a').forEach(item => {
+    if (item.hash === link.hash) item.setAttribute('aria-current', 'location');
+    else item.removeAttribute('aria-current');
+  });
+  function step(now) {
+    const progress = Math.min(1, (now - started) / duration);
+    const eased = progress < .5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2;
+    const destination = Math.max(0, Math.min(target.getBoundingClientRect().top + window.scrollY - padding, document.documentElement.scrollHeight - window.innerHeight));
+    window.scrollTo({ top: from + (destination - from) * eased, behavior: 'instant' });
+    if (progress < 1) scrollFrame = requestAnimationFrame(step);
+    else {
+      scrollFrame = 0;
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    }
+  }
+  scrollFrame = requestAnimationFrame(step);
+});
+
 const themeToggle = document.querySelector('.theme-toggle');
 function updateThemeButton() {
   const dark = document.documentElement.dataset.theme === 'dark';
