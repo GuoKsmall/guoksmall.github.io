@@ -49,7 +49,8 @@ header { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, v
 .brand img { width: 31px; height: 31px; object-fit: cover; border: 1px solid var(--line); border-radius: 50%; }
 .brand-dot { color: var(--ink); }
 nav { display: flex; align-items: center; gap: 2px; border-radius: 999px; padding: 5px; background: var(--soft); }
-nav a { border-radius: 999px; padding: 7px 18px; color: var(--muted); font-size: 12px; transition: color .2s, background .2s; }
+nav a { position: relative; border-radius: 999px; padding: 7px 18px; color: var(--muted); font-size: 12px; transition: color .25s, background .25s, transform .25s var(--ease); }
+nav a:active { transform: scale(.95); }
 nav a:hover, nav a[aria-current="location"] { background: var(--surface); color: var(--ink); }
 .nav-actions { justify-self: end; display: flex; gap: 12px; align-items: center; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 24px; min-height: 47px; padding: 11px 20px; border: 1px solid transparent; border-radius: 16px; font-size: 13px; font-weight: 500; color: var(--bg); background: var(--ink); transition: transform .25s var(--ease), background .2s, box-shadow .25s; }
@@ -147,7 +148,16 @@ a:hover > .link-arrow { transform: translate(2px, -2px); }
 .gallery-disclosure .when-open, .gallery-disclosure[open] .when-closed { display: none; }
 .gallery-disclosure[open] .when-open { display: inline; }
 .gallery-disclosure[open] .gallery-chevron { transform: rotate(180deg); }
-.gallery-content { padding: 26px; }
+.gallery-content { display: grid; grid-template-rows: 1fr; opacity: 1; transition: grid-template-rows .68s cubic-bezier(.4, 0, .2, 1), opacity .45s ease; }
+.gallery-clip { min-height: 0; overflow: hidden; }
+.gallery-inner { padding: 26px; transform: translateY(0); transition: transform .68s var(--ease); }
+.gallery-disclosure[data-expanded="false"] .gallery-content { grid-template-rows: 0fr; opacity: 0; }
+.gallery-disclosure[data-expanded="false"] .gallery-inner { transform: translateY(-10px); }
+.gallery-disclosure[data-expanded="false"] .when-open { display: none; }
+.gallery-disclosure[data-expanded="false"] .when-closed { display: inline; }
+.gallery-disclosure[data-expanded="false"] .gallery-chevron { transform: rotate(0); }
+.gallery-disclosure[data-expanded="false"] > summary::before { opacity: .38; }
+
 .memory.full-frame img { aspect-ratio: 16/9; object-fit: contain; }
 .gallery-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 28px; }
 .filters { position: relative; display: inline-flex; gap: 3px; padding: 5px; border: 1px solid var(--line); border-radius: 18px; background: var(--soft); flex-wrap: wrap; }
@@ -291,7 +301,7 @@ body:has(dialog[open]) { overflow: hidden; }
   .other-interests { grid-template-rows: auto auto; gap: 14px; }
   .interest-card h3 { font-size: 24px; }
   .gallery-disclosure > summary { padding: 20px; gap: 12px; }
-  .gallery-content { padding: 16px; }
+  .gallery-inner { padding: 16px; }
   .gallery-toolbar { flex-wrap: wrap; gap: 13px; margin-bottom: 19px; }
   .filters { padding: 4px; gap: 4px; width: 100%; justify-content: flex-start; border-radius: 18px; }
   .filters button { padding: 7px 9px; font-size: 10px; }
@@ -342,4 +352,13 @@ body:has(dialog[open]) { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Click-triggered motion remains available when ambient motion is reduced. */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-content { transition: grid-template-rows .68s cubic-bezier(.4, 0, .2, 1), opacity .45s ease !important; }
+  .gallery-inner { transition: transform .68s var(--ease) !important; }
+  .gallery-disclosure > summary::before { transition: opacity .35s var(--ease) !important; }
+  .gallery-chevron { transition: transform .5s var(--ease) !important; }
+  nav a { transition: color .25s, background .25s, transform .25s var(--ease) !important; }
 }
