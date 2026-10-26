@@ -16,7 +16,8 @@ for (const [, resource] of resources) {
   assert(existsSync(new URL(resource.split('?')[0], import.meta.url)), `Missing resource: ${resource}`);
 }
 const categories = [...html.matchAll(/<figure class="memory[^"]*" data-category="([^"]+)"/g)].map(match => match[1]);
-assert.equal(categories.length, 9);
+assert.equal(categories.length, 15);
+assert.match(html, /<details class="gallery-disclosure">/);
 for (const [, category, count] of html.matchAll(/data-filter="([^"]+)"[^>]*>[^<]+<small>(\d+)<\/small>/g)) {
   assert.equal(category === 'all' ? categories.length : categories.filter(value => value === category).length, Number(count));
 }
