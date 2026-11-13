@@ -145,3 +145,86 @@ lightbox.addEventListener('click', event => {
   const rect = lightbox.getBoundingClientRect();
   if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) lightbox.close();
 });
+
+// Measure the rendered glyphs so the burst preserves wrapping and crossed-out text.
+const fragmentTrigger = document.querySelector('.fragment-trigger');
+const fragments = document.querySelector('.about-fragments');
+const fragmentPanels = [...fragments.querySelectorAll('.fragment-panel')];
+fragmentTrigger.addEventListener('click', async () => {
+  if (fragmentTrigger.getAttribute('aria-disabled') === 'true') return;
+  const expanded = fragmentTrigger.getAttribute('aria-expanded') !== 'true';
+  const outgoing = fragmentPanels[expanded ? 0 : 1];
+  const incoming = fragmentPanels[expanded ? 1 : 0];
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const animations = [];
+  const dust = document.createElement('div');
+  dust.className = 'fragment-dust';
+  dust.setAttribute('aria-hidden', 'true');
+  dust.inert = true;
+  fragmentTrigger.setAttribute('aria-disabled', 'true');
+  fragments.setAttribute('aria-busy', 'true');
+  try {
+    if (!reducedMotion) {
+      fragments.append(dust);
+      const bounds = dust.getBoundingClientRect();
+      const walker = document.createTreeWalker(outgoing, NodeFilter.SHOW_TEXT);
+      const segmenter = new Intl.Segmenter('zh-CN', { granularity: 'grapheme' });
+      const range = document.createRange();
+      const particles = document.createDocumentFragment();
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        const style = getComputedStyle(node.parentElement);
+        for (const { segment, index } of segmenter.segment(node.textContent)) {
+          if (!segment.trim()) continue;
+          range.setStart(node, index);
+          range.setEnd(node, index + segment.length);
+          const rect = range.getBoundingClientRect();
+          const particle = document.createElement('span');
+          particle.className = 'fragment-particle';
+          particle.textContent = segment;
+          Object.assign(particle.style, {
+            left: `${rect.left - bounds.left}px`, top: `${rect.top - bounds.top}px`,
+            font: style.font, lineHeight: `${rect.height}px`, color: style.color,
+            textDecoration: style.textDecoration
+          });
+          particles.append(particle);
+        }
+      }
+      dust.append(particles);
+      for (const particle of dust.children) {
+        const x = (Math.random() - .5) * 130;
+        const lift = 12 + Math.random() * 24;
+        const fall = 150 + Math.random() * 130;
+        const rotation = (Math.random() - .5) * 120;
+        animations.push(particle.animate([
+          { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+          { transform: `translate(${x * .3}px, -${lift}px) rotate(${rotation * .2}deg)`, opacity: 1, offset: .22 },
+          { transform: `translate(${x * .75}px, ${fall * .35}px) rotate(${rotation * .65}deg)`, opacity: .65, offset: .65 },
+          { transform: `translate(${x}px, ${fall}px) rotate(${rotation}deg)`, opacity: 0 }
+        ], { duration: 760 + Math.random() * 220, delay: Math.random() * 100, easing: 'cubic-bezier(.4, 0, .8, .5)', fill: 'both' }));
+      }
+    }
+    outgoing.setAttribute('aria-hidden', 'true');
+    outgoing.inert = true;
+    await Promise.all(animations.map(animation => animation.finished));
+  } finally {
+    dust.remove();
+    animations.forEach(animation => animation.cancel());
+    incoming.setAttribute('aria-hidden', 'false');
+    incoming.inert = false;
+    fragmentTrigger.setAttribute('aria-expanded', String(expanded));
+    try {
+      if (!reducedMotion) {
+        const lines = [...incoming.querySelectorAll('p')].map((line, index) => line.animate([
+          { opacity: 0, transform: 'translateY(12px)' },
+          { opacity: 1, transform: 'translateY(0)' }
+        ], { duration: 620, delay: index * 170, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'both' }));
+        await Promise.all(lines.map(animation => animation.finished));
+        lines.forEach(animation => animation.cancel());
+      }
+    } finally {
+      fragmentTrigger.removeAttribute('aria-disabled');
+      fragments.removeAttribute('aria-busy');
+    }
+  }
+});

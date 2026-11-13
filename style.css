@@ -116,6 +116,16 @@ h1 { max-width: 900px; font-size: clamp(52px, 5.6vw, 80px); font-weight: 500; le
 .about-copy p { margin-bottom: 17px; color: var(--muted); font-size: 14px; line-height: 2; }
 .about-copy .about-lead { margin-bottom: 23px; color: var(--ink); font-size: 26px; font-weight: 400; line-height: 1.6; letter-spacing: -.6px; }
 .aside-text { text-decoration: line-through; text-decoration-thickness: 1px; }
+.fragment-trigger { position: relative; isolation: isolate; padding: 0; border: 0; border-radius: 4px; background: transparent; font: inherit; letter-spacing: inherit; }
+.fragment-trigger::before { content: ''; position: absolute; z-index: -1; inset: auto -3px .06em; height: .3em; border-radius: 4px; background: linear-gradient(105deg, #9abbe438, #c4aedb38); transition: height .3s var(--ease), background .3s; }
+.fragment-trigger:hover::before, .fragment-trigger:focus-visible::before { height: .64em; background: linear-gradient(105deg, #9abbe45c, #c4aedb5c); }
+.fragment-trigger[aria-disabled="true"] { cursor: progress; }
+.about-fragments { position: relative; display: grid; }
+.fragment-panel { grid-area: 1 / 1; min-width: 0; }
+.fragment-panel[aria-hidden="true"] { visibility: hidden; pointer-events: none; }
+.fragment-notes p { margin-bottom: 8px; }
+.fragment-dust { position: absolute; inset: -20px -10px -100px; z-index: 1; overflow: clip; pointer-events: none; }
+.fragment-particle { position: absolute; white-space: pre; }
 .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 40px; }
 .interests-layout { display: grid; grid-template-columns: 1.18fr 1fr; gap: 20px; }
 .games-card { padding: 32px; }

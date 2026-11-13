@@ -15,7 +15,7 @@
   <link rel="icon" href="assets/avatar.jpg" type="image/jpeg">
   <title>果_k / Guok · 个人小站</title>
   <script>try{document.documentElement.dataset.theme=localStorage.getItem('guok-theme')==='dark'?'dark':'light'}catch{}</script>
-  <link rel="stylesheet" href="style.css?v=arc-20261113-6">
+  <link rel="stylesheet" href="style.css?v=fragments-20261113-1">
   <link rel="stylesheet" href="sky.css?v=arc-20261113-1">
 </head>
 <body>
@@ -57,7 +57,24 @@
     </article>
   </div>
   <section class="section wrap about-section" id="about" aria-labelledby="about-title">
-    <div class="about-layout"><div class="section-heading"><div class="eyebrow">01 / ABOUT ME</div><h2 id="about-title">一些关于<br>我的碎片<span class="text-dot">。</span></h2></div><div class="about-copy"><p class="about-lead">你好，我是果_k，<br>也可以叫我 Guok。</p><p>目前是一名命苦高中生。兴趣很多，包括游戏、AI、Furry(?) 和 SF（轻小说），还有一些奇奇怪怪的小爱好(？)</p><p>这个网站用来快速了解我，也是我的互联网生活记录。欢迎深入交流，<s class="aside-text">本人可能比较抽象。</s></p></div></div>
+    <div class="about-layout">
+      <div class="section-heading"><div class="eyebrow">01 / ABOUT ME</div><h2 id="about-title">一些关于<br>我的<button class="fragment-trigger" type="button" aria-controls="about-fragments" aria-expanded="false" title="点一下，看看更多碎片">碎片</button><span class="text-dot">。</span></h2></div>
+      <div class="about-copy">
+        <p class="about-lead">你好，我是果_k，<br>也可以叫我 Guok。</p>
+        <div class="about-fragments" id="about-fragments" aria-live="polite" aria-atomic="true">
+          <div class="fragment-panel" aria-hidden="false">
+            <p>目前是一名命苦高中生。兴趣很多，包括游戏、AI、Furry(?) 和 SF（轻小说），还有一些奇奇怪怪的小爱好(？)</p>
+            <p>这个网站用来快速了解我，也是我的互联网生活记录。欢迎深入交流，<s class="aside-text">本人可能比较抽象。</s></p>
+          </div>
+          <div class="fragment-panel fragment-notes" aria-hidden="true" inert>
+            <p>喜欢菠萝派 巧克力 生日是3.14</p>
+            <p>第五人格已退游 目前主战cs mc等</p>
+            <p>状态:备战高考(<s class="aside-text">松弛</s></p>
+            <p>如果看到我请叫我滚去学习🤧</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
   <section class="section wrap" id="interests" aria-labelledby="interest-title">
     <div class="section-head"><div><div class="eyebrow">02 / LITTLE JOYS</div><h2 id="interest-title">一些游戏</h2></div></div>
@@ -106,6 +123,6 @@
 <dialog class="lightbox" aria-label="图片预览"><div class="lightboxhead"><span class="lightbox-category"></span><button class="lightbox-close" type="button" aria-label="关闭大图">×</button></div><div class="lightbox-image-wrap"><img class="lightbox-image" alt=""></div><div class="lightboxfoot"><button class="lightbox-prev" type="button" aria-label="上一张照片">←</button><span class="lightbox-counter" aria-live="polite"></span><button class="lightbox-next" type="button" aria-label="下一张照片">→</button></div></dialog>
 <script type="module" src="sky.mjs?v=arc-20261026-4"></script>
 <script type="module" src="emoji.mjs?v=arc-20261113-8"></script>
-<script src="main.js?v=arc-20261113-3" defer></script>
+<script src="main.js?v=fragments-20261113-1" defer></script>
 </body>
 </html>
