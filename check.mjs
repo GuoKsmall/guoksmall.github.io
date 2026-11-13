@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { skyState } from './sky.mjs';
-import { sphereMesh, gazeTarget } from './emoji.mjs';
+import { sphereMesh, gazeTarget, restingGaze } from './emoji.mjs';
 
 // Catch broken local assets, in-page navigation, and gallery category counts.
 const html = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
@@ -61,6 +61,7 @@ for (let index = 0; index < indices.length; index += 3) {
   assert(normal.reduce((sum, value, axis) => sum + value * a[axis], 0) >= -1e-6);
 }
 const eyeRect = { left: 100, top: 200, width: 200, height: 200 };
+assert.deepEqual(restingGaze, [1, -1], 'The original upward-right expression must be preserved before interaction');
 assert.deepEqual(gazeTarget(200, 272, eyeRect), [0, 0]);
 assert(gazeTarget(1000, 272, eyeRect)[0] > 0);
 assert(gazeTarget(0, 272, eyeRect)[0] < 0);
