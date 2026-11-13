@@ -167,6 +167,9 @@ fragmentTrigger.addEventListener('click', async () => {
     if (!reducedMotion) {
       fragments.append(dust);
       const bounds = dust.getBoundingClientRect();
+      const origin = { x: 10 + Math.random() * (bounds.width - 20), y: 32 + Math.random() * outgoing.offsetHeight };
+      const energy = .7 + Math.random() * .7;
+      const wind = (Math.random() - .5) * 90;
       const walker = document.createTreeWalker(outgoing, NodeFilter.SHOW_TEXT);
       const segmenter = new Intl.Segmenter('zh-CN', { granularity: 'grapheme' });
       const range = document.createRange();
@@ -179,29 +182,51 @@ fragmentTrigger.addEventListener('click', async () => {
           range.setStart(node, index);
           range.setEnd(node, index + segment.length);
           const rect = range.getBoundingClientRect();
-          const particle = document.createElement('span');
-          particle.className = 'fragment-particle';
-          particle.textContent = segment;
-          Object.assign(particle.style, {
-            left: `${rect.left - bounds.left}px`, top: `${rect.top - bounds.top}px`,
-            font: style.font, lineHeight: `${rect.height}px`, color: style.color,
-            textDecoration: style.textDecoration
-          });
-          particles.append(particle);
+          // Complementary cuts keep the whole glyph visible before its shards separate.
+          const cut = 25 + Math.random() * 50;
+          const shapes = Math.random() < .45 && !/\p{Extended_Pictographic}/u.test(segment) ? [
+            `polygon(0 0, 100% 0, 100% ${cut}%, 0 ${100 - cut}%)`,
+            `polygon(0 ${100 - cut}%, 100% ${cut}%, 100% 100%, 0 100%)`
+          ] : ['none'];
+          for (const clipPath of shapes) {
+            const particle = document.createElement('span');
+            particle.className = 'fragment-particle';
+            particle.textContent = segment;
+            Object.assign(particle.style, {
+              left: `${rect.left - bounds.left}px`, top: `${rect.top - bounds.top}px`,
+              font: style.font, lineHeight: `${rect.height}px`, color: style.color,
+              textDecoration: style.textDecoration, clipPath
+            });
+            particles.append(particle);
+          }
         }
       }
       dust.append(particles);
       for (const particle of dust.children) {
-        const x = (Math.random() - .5) * 130;
-        const lift = 12 + Math.random() * 24;
-        const fall = 150 + Math.random() * 130;
-        const rotation = (Math.random() - .5) * 120;
-        animations.push(particle.animate([
-          { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
-          { transform: `translate(${x * .3}px, -${lift}px) rotate(${rotation * .2}deg)`, opacity: 1, offset: .22 },
-          { transform: `translate(${x * .75}px, ${fall * .35}px) rotate(${rotation * .65}deg)`, opacity: .65, offset: .65 },
-          { transform: `translate(${x}px, ${fall}px) rotate(${rotation}deg)`, opacity: 0 }
-        ], { duration: 760 + Math.random() * 220, delay: Math.random() * 100, easing: 'cubic-bezier(.4, 0, .8, .5)', fill: 'both' }));
+        const dx = parseFloat(particle.style.left) - origin.x;
+        const dy = parseFloat(particle.style.top) - origin.y;
+        const angle = Math.atan2(dy, dx) + (Math.random() - .5) * 1.8;
+        const impulse = (60 + Math.random() * 170) * energy;
+        const vx = Math.cos(angle) * impulse;
+        const vy = Math.sin(angle) * impulse * .35 - 35 - Math.random() * 110;
+        const gravity = 650 + Math.random() * 450;
+        const rotation = (Math.random() - .5) * 540;
+        const duration = .7 + Math.random() * .4;
+        const shrink = Math.random() * .3;
+        const fadeAt = .25 + Math.random() * .25;
+        const keyframes = Array.from({ length: 9 }, (_, step) => {
+          const progress = step / 8;
+          const time = progress * duration;
+          return {
+            transform: `translate(${vx * time + wind * time * time}px, ${vy * time + .5 * gravity * time * time}px) rotate(${rotation * progress}deg) scale(${1 - shrink * progress})`,
+            opacity: progress <= fadeAt ? 1 : (1 - progress) / (1 - fadeAt),
+            offset: progress
+          };
+        });
+        animations.push(particle.animate(keyframes, {
+          duration: duration * 1000, delay: Math.hypot(dx, dy) * .12 + Math.random() * 140,
+          easing: 'linear', fill: 'both'
+        }));
       }
     }
     outgoing.setAttribute('aria-hidden', 'true');
