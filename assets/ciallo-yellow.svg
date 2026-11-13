@@ -11,7 +11,7 @@
   </defs>
   <circle id="face-silhouette" cx="256" cy="256" r="238" fill="url(#face)" stroke="#27251f" stroke-width="12"/>
   <use href="#eyes" fill="#fafbf9"/>
-  <g fill="#28282b" clip-path="url(#eye-clip)">
+  <g id="pupils" fill="#28282b" clip-path="url(#eye-clip)">
     <circle cx="182" cy="168" r="29"/>
     <circle cx="399" cy="168" r="30"/>
   </g>

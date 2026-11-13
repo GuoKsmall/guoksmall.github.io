@@ -1,6 +1,14 @@
 const canvas = globalThis.document?.querySelector('.emoji-model');
 const fallback = canvas?.nextElementSibling;
 
+export function gazeTarget(x, y, rect) {
+  const reach = Math.max(rect.width, 1) * .85;
+  const dx = (x - rect.left - rect.width * .5) / reach;
+  const dy = (y - rect.top - rect.height * .36) / reach;
+  const length = Math.max(1, Math.hypot(dx, dy));
+  return [dx / length, dy / length];
+}
+
 export function sphereMesh() {
   const vertices = [], indices = [], rows = 48, columns = 64;
   for (let row = 0; row <= rows; row++) {
@@ -48,11 +56,17 @@ async function createEmoji() {
   gl.attachShader(program, shader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     uniform sampler2D expression;
+    uniform vec2 gaze;
     uniform bool outline;
     varying vec3 modelPosition, worldPosition, normal;
     void main() {
       if (outline) { gl_FragColor = vec4(.15, .14, .11, 1.); return; }
-      vec4 face = texture2D(expression, vec2(modelPosition.x * .5 + .5, .5 - modelPosition.y * .5));
+      vec2 uv = vec2(modelPosition.x * .5 + .5, .5 - modelPosition.y * .5);
+      vec4 face = texture2D(expression, uv);
+      vec2 point = uv * 512. - gaze * vec2(29., 23.);
+      float pupil = max(1. - smoothstep(28., 30., length(point - vec2(147., 194.))), 1. - smoothstep(29., 31., length(point - vec2(360., 194.))));
+      float eye = smoothstep(.7, .95, min(face.r, min(face.g, face.b)));
+      face.rgb = mix(face.rgb, vec3(.157, .157, .169), pupil * eye);
       face.a *= smoothstep(.05, .18, modelPosition.z);
       vec3 color = mix(vec3(1., .83, .32), face.rgb, face.a);
       vec3 n = normalize(normal), light = normalize(vec3(-.6, .9, 1.5));
@@ -79,6 +93,7 @@ async function createEmoji() {
   if (!response.ok) throw new Error('Expression asset unavailable');
   const svg = new DOMParser().parseFromString(await response.text(), 'image/svg+xml');
   svg.getElementById('face-silhouette').remove();
+  svg.getElementById('pupils').remove();
   const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(svg)], { type: 'image/svg+xml' }));
   const image = new Image();
   try { image.src = url; await image.decode(); }
@@ -96,22 +111,35 @@ async function createEmoji() {
   const rotation = gl.getUniformLocation(program, 'rotation');
   const scale = gl.getUniformLocation(program, 'scale');
   const outline = gl.getUniformLocation(program, 'outline');
+  const gaze = gl.getUniformLocation(program, 'gaze');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let yaw = -.12, pitch = -.05, velocityX = 0, velocityY = 0, drag = null, frame = 0, previous = 0;
+  let gazeX = 0, gazeY = 0, pointer = null;
   function requestDraw() { if (!frame) frame = requestAnimationFrame(draw); }
   function draw(time) {
     frame = 0;
     if (canvas.hidden || gl.isContextLost()) return;
+    const rect = canvas.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > innerHeight) return;
     const delta = Math.min((time - previous || 16) / 16.67, 2);
     previous = time;
+    const [targetX, targetY] = pointer ? gazeTarget(pointer.x, pointer.y, rect) : [0, 0];
+    const ease = reducedMotion.matches ? 1 : 1 - Math.exp(-delta * .12);
+    gazeX += (targetX - gazeX) * ease;
+    gazeY += (targetY - gazeY) * ease;
+    const looking = Math.abs(targetX - gazeX) + Math.abs(targetY - gazeY) > .001;
+    if (!looking) { gazeX = targetX; gazeY = targetY; }
     if (!drag) {
       yaw += velocityX * delta;
       pitch = Math.max(-1.15, Math.min(1.15, pitch + velocityY * delta));
       velocityX *= .88 ** delta;
       velocityY *= .88 ** delta;
+      if (Math.abs(velocityX) + Math.abs(velocityY) < .0001) velocityX = velocityY = 0;
     }
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.uniform2f(rotation, yaw, pitch);
+    gl.uniform2f(gaze, gazeX, gazeY);
     gl.cullFace(gl.FRONT);
     gl.uniform1f(scale, 1.025);
     gl.uniform1i(outline, 1);
@@ -120,8 +148,17 @@ async function createEmoji() {
     gl.uniform1f(scale, 1);
     gl.uniform1i(outline, 0);
     gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
-    if (!drag && Math.abs(velocityX) + Math.abs(velocityY) > .0001) requestDraw();
+    if (looking || (!drag && Math.abs(velocityX) + Math.abs(velocityY) > .0001)) requestDraw();
   }
+  window.addEventListener('pointermove', event => {
+    if (event.pointerType === 'touch') return;
+    pointer = { x: event.clientX, y: event.clientY };
+    requestDraw();
+  }, { passive: true });
+  function restEyes() { pointer = null; requestDraw(); }
+  document.addEventListener('pointerleave', restEyes);
+  window.addEventListener('blur', restEyes);
+  window.addEventListener('scroll', requestDraw, { passive: true });
   canvas.addEventListener('pointerdown', event => {
     if (event.button !== 0 || drag) return;
     drag = { id: event.pointerId, x: event.clientX, y: event.clientY };
@@ -142,7 +179,7 @@ async function createEmoji() {
   function release(event) {
     if (!drag || event.pointerId !== drag.id) return;
     drag = null;
-    if (event.type === 'pointercancel' || matchMedia('(prefers-reduced-motion: reduce)').matches) velocityX = velocityY = 0;
+    if (event.type === 'pointercancel' || reducedMotion.matches) velocityX = velocityY = 0;
     requestDraw();
   }
   canvas.addEventListener('pointerup', release);
