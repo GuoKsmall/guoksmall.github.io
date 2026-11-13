@@ -41,3 +41,7 @@ The two colored SVG game icons are community renditions from [Papirus icon theme
 # Portal contact decoration
 
 portal-contact.svg is an original vector illustration of paired blue/orange portals and a heart-marked companion cube, inspired by Valve's Portal game. It is a fan decoration for the personal site's contact section. Portal and the companion cube design belong to Valve; this is not an official Valve asset.
+
+# Ciallo expression
+
+ciallo-yellow.svg redraws and completes the yellow expression supplied by the site owner, with a transparent background. emoji.mjs maps its facial features onto an interactive WebGL sphere. The earlier hero-expression.png is retained as an unused source asset.

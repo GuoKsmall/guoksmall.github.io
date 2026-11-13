@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">抬眼吐舌的黄色圆脸</title>
+  <desc id="description">完整的黄色圆脸、向右上看的大眼睛、弯弯的嘴和粉色小舌头，圆脸外为透明背景。</desc>
+  <defs>
+    <radialGradient id="face" cx="35%" cy="25%" r="85%">
+      <stop stop-color="#ffe888"/>
+      <stop offset="1" stop-color="#ffdb63"/>
+    </radialGradient>
+    <path id="eyes" d="M80 248C60 182 91 126 140 128C192 127 224 181 210 248ZM292 248C273 181 308 126 357 128C408 127 443 181 427 248Z"/>
+    <clipPath id="eye-clip"><use href="#eyes"/></clipPath>
+  </defs>
+  <circle id="face-silhouette" cx="256" cy="256" r="238" fill="url(#face)" stroke="#27251f" stroke-width="12"/>
+  <use href="#eyes" fill="#fafbf9"/>
+  <g fill="#28282b" clip-path="url(#eye-clip)">
+    <circle cx="182" cy="168" r="29"/>
+    <circle cx="399" cy="168" r="30"/>
+  </g>
+  <use href="#eyes" fill="none" stroke="#27251f" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M309 289C337 282 368 302 366 324C365 349 333 356 308 339L292 330Z" fill="#ec929a" stroke="#27251f" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M199 278C182 306 190 338 218 338C243 338 252 322 251 303C249 325 263 339 286 339C313 339 319 310 301 282" fill="none" stroke="#27251f" stroke-width="15" stroke-linejoin="round"/>
+</svg>

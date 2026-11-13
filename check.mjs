@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { skyState } from './sky.mjs';
+import { sphereMesh } from './emoji.mjs';
 
 // Catch broken local assets, in-page navigation, and gallery category counts.
 const html = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
@@ -42,4 +43,21 @@ for (let minute = 0; minute < 1440; minute++) {
     assert(color.match(/\d+/g).every(channel => Number(channel) <= 255));
   }
 }
-console.log('Passed: assets, anchors, gallery counts, custom domain, and all 1,440 sky states.');
+// The sphere must have unit normals, a closed seam, and outward-facing triangles.
+const { vertices, indices } = sphereMesh();
+const vertex = index => vertices.subarray(index * 3, index * 3 + 3);
+assert.equal(vertices.length, 49 * 65 * 3);
+assert.equal(indices.length, 48 * 64 * 6);
+assert(indices.every(index => index < vertices.length / 3));
+for (let index = 0; index < vertices.length / 3; index++) assert(Math.abs(Math.hypot(...vertex(index)) - 1) < 1e-6);
+for (let row = 0; row <= 48; row++) {
+  const start = vertex(row * 65), end = vertex(row * 65 + 64);
+  assert(start.every((value, axis) => Math.abs(value - end[axis]) < 1e-6));
+}
+for (let index = 0; index < indices.length; index += 3) {
+  const a = vertex(indices[index]), b = vertex(indices[index + 1]), c = vertex(indices[index + 2]);
+  const u = b.map((value, axis) => value - a[axis]), v = c.map((value, axis) => value - a[axis]);
+  const normal = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+  assert(normal.reduce((sum, value, axis) => sum + value * a[axis], 0) >= -1e-6);
+}
+console.log('Passed: assets, anchors, gallery counts, custom domain, all 1,440 sky states, and the closed 3D sphere mesh.');

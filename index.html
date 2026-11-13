@@ -15,7 +15,7 @@
   <link rel="icon" href="assets/avatar.jpg" type="image/jpeg">
   <title>果_k / Guok · 个人小站</title>
   <script>try{document.documentElement.dataset.theme=localStorage.getItem('guok-theme')==='dark'?'dark':'light'}catch{}</script>
-  <link rel="stylesheet" href="style.css?v=arc-20261113-4">
+  <link rel="stylesheet" href="style.css?v=arc-20261113-6">
   <link rel="stylesheet" href="sky.css?v=arc-20261113-1">
 </head>
 <body>
@@ -50,11 +50,11 @@
         <div class="sky-caption"><span class="world-clock">正在读取此刻…</span></div>
       </div>
     </article>
-    <a class="card hello-card" href="#contact" aria-label="Ciallo～，前往联系方式">
-      <div class="card-kicker"><span aria-hidden="true">↗</span></div>
-      <div class="hello-image"><img src="assets/hero-expression.png" alt="双手交叠、脸颊泛红的可爱表情图" width="1320" height="1228"></div>
-      <div class="hello-caption"><span>Ciallo～</span><small>はじめまして</small></div>
-    </a>
+    <article class="card hello-card">
+      <div class="card-kicker"><a href="#contact" aria-label="前往联系方式">↗</a></div>
+      <div class="hello-image"><canvas class="emoji-model" width="512" height="512" tabindex="0" role="img" aria-label="黄色圆脸 3D 表情，可拖动或使用方向键旋转，Home 键复位" hidden></canvas><img src="assets/ciallo-yellow.svg" alt="抬眼吐舌的黄色圆脸表情" width="512" height="512"></div>
+      <a class="hello-caption" href="#contact" aria-label="Ciallo～，前往联系方式"><span>Ciallo～</span><small>はじめまして</small></a>
+    </article>
   </div>
   <section class="section wrap about-section" id="about" aria-labelledby="about-title">
     <div class="about-layout"><div class="section-heading"><div class="eyebrow">01 / ABOUT ME</div><h2 id="about-title">一些关于<br>我的碎片<span class="text-dot">。</span></h2></div><div class="about-copy"><p class="about-lead">你好，我是果_k，<br>也可以叫我 Guok。</p><p>目前是一名命苦高中生。兴趣很多，包括游戏、AI、Furry(?) 和 SF（轻小说），还有一些奇奇怪怪的小爱好(？)</p><p>这个网站用来快速了解我，也是我的互联网生活记录。欢迎深入交流，<s class="aside-text">本人可能比较抽象。</s></p></div></div>
@@ -105,6 +105,7 @@
 <footer><div class="wrap footer-inner"><a class="brand footer-brand" href="#top">Guok<span class="brand-dot">.</span></a><span class="footer-year">© 2026</span><a class="back-top" href="#top">回到顶部 <span aria-hidden="true">↑</span></a></div><div class="wrap footer-credits"><span>保持好奇，保持联系。</span></div></footer>
 <dialog class="lightbox" aria-label="图片预览"><div class="lightboxhead"><span class="lightbox-category"></span><button class="lightbox-close" type="button" aria-label="关闭大图">×</button></div><div class="lightbox-image-wrap"><img class="lightbox-image" alt=""></div><div class="lightboxfoot"><button class="lightbox-prev" type="button" aria-label="上一张照片">←</button><span class="lightbox-counter" aria-live="polite"></span><button class="lightbox-next" type="button" aria-label="下一张照片">→</button></div></dialog>
 <script type="module" src="sky.mjs?v=arc-20261026-4"></script>
+<script type="module" src="emoji.mjs?v=arc-20261113-6"></script>
 <script src="main.js?v=arc-20261113-3" defer></script>
 </body>
 </html>

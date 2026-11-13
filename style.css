@@ -34,7 +34,7 @@ button, input { font: inherit; }
 button { color: inherit; touch-action: manipulation; }
 button, summary { cursor: pointer; }
 button, a, input { -webkit-tap-highlight-color: transparent; }
-:where(button, a, input, summary):focus-visible { outline: 2px solid #7897c8; outline-offset: 5px; }
+:where(button, a, input, summary, .emoji-model):focus-visible { outline: 2px solid #7897c8; outline-offset: 5px; }
 img { display: block; max-width: 100%; }
 [hidden] { display: none !important; }
 h1, h2, h3, p, figure { margin: 0; }
@@ -99,12 +99,11 @@ h1 { max-width: 900px; font-size: clamp(52px, 5.6vw, 80px); font-weight: 500; le
 .profile-tags span { padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted); font-size: 9px; }
 .card-bottom-link { display: flex; justify-content: space-between; gap: 12px; align-self: stretch; margin-top: auto; border-top: 1px solid var(--line); padding: 16px 0 19px; color: var(--muted); font-size: 10px; }
 .card-bottom-link:hover { color: var(--ink); }
-.hello-card { display: flex; flex-direction: column; padding: 25px 25px 0; background: var(--soft); transition: transform .4s var(--ease); }
-.hello-card:hover { transform: translateY(-4px); }
+.hello-card { display: flex; flex-direction: column; padding: 25px 25px 0; background: var(--soft); }
 .hello-image { display: flex; align-items: center; justify-content: center; flex: 1; min-height: 210px; }
-.hello-image img { width: 100%; height: auto; max-width: 200px; mix-blend-mode: multiply; transition: transform .5s var(--ease); }
-.hello-card:hover img { transform: rotate(-3deg) scale(1.02); }
-[data-theme="dark"] .hello-image img { mix-blend-mode: normal; border-radius: 16px; }
+.hello-image img, .emoji-model { display: block; width: 100%; height: auto; max-width: 200px; aspect-ratio: 1; }
+.emoji-model { cursor: grab; touch-action: none; border-radius: 50%; }
+.emoji-model:active { cursor: grabbing; }
 .hello-caption { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-top: 1px solid var(--line); padding: 16px 0 19px; font-size: 12px; }
 .hello-caption small { font-size: 9px; color: var(--muted); }
 .section { margin-top: 140px; }
@@ -282,7 +281,7 @@ body:has(dialog[open]) { overflow: hidden; }
   .card-bottom-link { padding: 13px 0 16px; font-size: 8px; gap: 4px; }
   .hello-card { padding: 18px 16px 0; }
   .hello-image { min-height: 155px; }
-  .hello-image img { max-width: 160px; }
+  .hello-image img, .emoji-model { max-width: 160px; }
   .hello-caption { padding: 13px 0 16px; font-size: 11px; }
   .hello-caption small { font-size: 8px; }
   .card { border-radius: 22px; }
