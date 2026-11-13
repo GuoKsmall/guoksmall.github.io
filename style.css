@@ -59,6 +59,7 @@ nav a:hover, nav a[aria-current="location"] { background: var(--surface); color:
 .button.small { min-height: 36px; padding: 7px 16px; border-radius: 999px; font-size: 11px; gap: 16px; }
 .button.secondary { color: var(--ink); background: transparent; border-color: var(--strong-line); }
 .button.secondary:hover { background: color-mix(in srgb, var(--surface) 65%, transparent); }
+[data-theme="dark"] .nav-actions .button { color: var(--ink); background: var(--soft); border-color: var(--strong-line); }
 .theme-toggle { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; background: transparent; border: 0; border-radius: 50%; transition: background .2s; }
 .theme-toggle:hover { background: var(--soft); }
 .theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
@@ -70,10 +71,13 @@ nav a:hover, nav a[aria-current="location"] { background: var(--surface); color:
 ::view-transition-new(root) { z-index: 1; }
 .theme-revealing * { transition: none !important; }
 .theme-fading, .theme-fading * { transition: background-color .35s ease, color .35s ease, border-color .35s ease !important; }
-.hero { position: relative; isolation: isolate; width: min(1440px, calc(100% - 48px)); min-height: 610px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 92px 32px 90px; margin-top: 24px; overflow: hidden; border: 1px solid #ededeb; border-radius: 30px; background: #f8f7f4; color: #242529; text-align: center; --ink: #242529; --bg: #f8f7f4; --muted: #68686e; --faint: #727278; --strong-line: #cececf; --surface: #fff; }
+.hero { position: relative; isolation: isolate; width: min(1440px, calc(100% - 48px)); min-height: 610px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 92px 32px 90px; margin-top: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 30px; background: #f8f7f4; color: var(--ink); text-align: center; --ink: #242529; --bg: #f8f7f4; --muted: #68686e; --faint: #727278; --strong-line: #cececf; --surface: #fff; }
 .hero::before, .hero::after { content: ''; position: absolute; inset: -12%; z-index: -1; pointer-events: none; }
 .hero::before { background: radial-gradient(ellipse at 99% 0%, #a9c3f2b8, transparent 45%), radial-gradient(ellipse at 0% 100%, #edc5cf9c, transparent 42%), radial-gradient(ellipse at 53% 110%, #f0e8c675, transparent 45%); animation: hero-drift 24s ease-in-out infinite alternate; }
 .hero::after { background: radial-gradient(ellipse at 10% 15%, #c9b9ecb8, transparent 55%), radial-gradient(ellipse at 95% 85%, #b5dfd3b0, transparent 55%), radial-gradient(ellipse at 50% 100%, #f1d1b68c, transparent 50%); opacity: 0; animation: hero-tint 24s ease-in-out infinite alternate; }
+[data-theme="dark"] .hero { background: #141a26; --ink: #eff2fa; --bg: #141a26; --muted: #bac2d4; --faint: #aab3c8; --strong-line: #46516a; --surface: #1d2638; }
+[data-theme="dark"] .hero::before { background: radial-gradient(ellipse at 99% 0%, #334c7bb8, transparent 45%), radial-gradient(ellipse at 0% 100%, #5136578c, transparent 42%), radial-gradient(ellipse at 53% 110%, #203d4780, transparent 45%); }
+[data-theme="dark"] .hero::after { background: radial-gradient(ellipse at 10% 15%, #423068b3, transparent 55%), radial-gradient(ellipse at 95% 85%, #21544c8c, transparent 55%), radial-gradient(ellipse at 50% 100%, #59402a66, transparent 50%); }
 @keyframes hero-drift { to { transform: translate3d(-5%, 3%, 0) scale(1.1) rotate(-8deg); } }
 @keyframes hero-tint { to { opacity: .85; transform: translate3d(4%, -3%, 0) scale(1.08); } }
 h1 { max-width: 900px; font-size: clamp(52px, 5.6vw, 80px); font-weight: 500; letter-spacing: -3px; line-height: 1.22; text-wrap: balance; }
