@@ -70,11 +70,41 @@ function updateThemeButton() {
   themeToggle.setAttribute('aria-label', dark ? '切换到浅色模式' : '切换到深色模式');
   document.querySelector('meta[name="theme-color"]').content = dark ? '#131313' : '#ffffff';
 }
-themeToggle.addEventListener('click', () => {
-  const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-  document.documentElement.dataset.theme = theme;
-  try { localStorage.setItem('guok-theme', theme); } catch { /* The theme still works without storage. */ }
-  updateThemeButton();
+let themeChanging = false;
+themeToggle.addEventListener('click', async () => {
+  if (themeChanging) return;
+  const root = document.documentElement;
+  const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  const applyTheme = () => {
+    root.dataset.theme = theme;
+    try { localStorage.setItem('guok-theme', theme); } catch { /* The theme still works without storage. */ }
+    updateThemeButton();
+  };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return applyTheme();
+  themeChanging = true;
+  try {
+    if (!document.startViewTransition) {
+      root.classList.add('theme-fading');
+      applyTheme();
+      await new Promise(resolve => setTimeout(resolve, 350));
+      return;
+    }
+    root.classList.add('theme-revealing');
+    const rect = themeToggle.getBoundingClientRect();
+    const x = rect.left + rect.width / 2, y = rect.top + rect.height / 2;
+    const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+    const transition = document.startViewTransition(applyTheme);
+    await transition.ready;
+    await root.animate({ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] }, {
+      duration: 650, easing: 'cubic-bezier(.4, 0, .2, 1)', pseudoElement: '::view-transition-new(root)'
+    }).finished;
+    await transition.finished;
+  } catch { /* A skipped snapshot still applies the selected theme. */ }
+  finally {
+    root.classList.remove('theme-revealing');
+    root.classList.remove('theme-fading');
+    themeChanging = false;
+  }
 });
 updateThemeButton();
 

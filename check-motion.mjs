@@ -85,3 +85,51 @@ click('about');
 tick(4000);
 assert.equal(window.scrollY, 1280, 'A new navigation must replace the prior destination');
 console.log('Passed: accordion reversal, delayed close, focus, intermediate scroll positions, cancellation, and repeated navigation.');
+
+// Check both theme directions, rapid clicks, and browser/storage fallbacks.
+const themeSource = 'const themeToggle =' + readFileSync(new URL('./main.js', import.meta.url), 'utf8')
+  .split('const themeToggle =')[1].split('const memories =')[0];
+for (const mode of ['animated', 'unsupported', 'reduced', 'storage-failure', 'skipped']) {
+  const button = { ...element(), getBoundingClientRect: () => ({ left: 330, top: 16, width: 32, height: 32 }) };
+  const classes = new Set(), animations = [], saved = {}, meta = {};
+  let release;
+  const animationEnd = new Promise(resolve => { release = resolve; });
+  const root = {
+    dataset: { theme: 'light' },
+    classList: { add: name => classes.add(name), remove: name => classes.delete(name) },
+    animate(frames, options) { animations.push({ frames, options }); return { finished: animationEnd }; }
+  };
+  const themeDocument = { documentElement: root, querySelector: selector => selector === '.theme-toggle' ? button : meta };
+  if (mode !== 'unsupported') themeDocument.startViewTransition = update => {
+    update();
+    return { ready: mode === 'skipped' ? Promise.reject(new Error('Snapshot skipped')) : Promise.resolve(), finished: Promise.resolve() };
+  };
+  vm.runInNewContext(themeSource, {
+    document: themeDocument, window: { innerWidth: 390, innerHeight: 844 },
+    matchMedia: () => ({ matches: mode === 'reduced' }),
+    localStorage: { setItem(key, value) { if (mode === 'storage-failure') throw new Error('Storage blocked'); saved[key] = value; } },
+    setTimeout: callback => callback()
+  });
+  const first = button.listeners.click();
+  if (mode !== 'reduced') await button.listeners.click();
+  release();
+  await first;
+  assert.equal(root.dataset.theme, 'dark', mode);
+  assert.equal(button.attributes['aria-pressed'], 'true', mode);
+  assert.equal(button.attributes['aria-label'], '切换到浅色模式', mode);
+  assert.equal(meta.content, '#131313', mode);
+  assert.equal(classes.size, 0, mode);
+  if (mode !== 'storage-failure') assert.equal(saved['guok-theme'], 'dark', mode);
+  if (['animated', 'storage-failure'].includes(mode)) {
+    assert.equal(animations.length, 1, mode);
+    assert.equal(animations[0].frames.clipPath[0], 'circle(0px at 346px 32px)');
+    assert.equal(animations[0].frames.clipPath[1], `circle(${Math.hypot(346, 812)}px at 346px 32px)`);
+    assert.equal(animations[0].options.pseudoElement, '::view-transition-new(root)');
+    assert.equal(animations[0].options.duration, 650);
+  } else assert.equal(animations.length, 0, mode);
+  await button.listeners.click();
+  assert.equal(root.dataset.theme, 'light', mode);
+  assert.equal(button.attributes['aria-label'], '切换到深色模式', mode);
+  assert.equal(meta.content, '#ffffff', mode);
+}
+console.log('Passed: circular theme reveal, viewport coverage, both directions, rapid clicks, reduced motion, unavailable transitions, skipped snapshots, and blocked storage.');
