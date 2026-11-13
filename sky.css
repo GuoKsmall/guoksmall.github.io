@@ -31,11 +31,9 @@
 .far-hill { fill: var(--mountain-far); }
 .near-hill { fill: var(--mountain-near); }
 .tree { fill: var(--sky-top); }
-.sky-heading { position: absolute; top: 19px; left: 22px; right: 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; }
-.sky-card[data-period="day"] .sky-heading { color: #243b48; }
 .sky-caption { position: absolute; left: 22px; right: 22px; bottom: 18px; display: flex; flex-direction: column; gap: 4px; }
 .world-clock { font: 17px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .8px; }
 @keyframes drift { to { transform: translateX(24px); } }
-@media (max-width: 1000px) { .sky-heading, .sky-caption { left: 17px; right: 17px; } }
-@media (max-width: 720px) { .sky-scene { min-height: 260px; } .sky-heading, .sky-caption { left: 21px; right: 21px; } }
+@media (max-width: 1000px) { .sky-caption { left: 17px; right: 17px; } }
+@media (max-width: 720px) { .sky-scene { min-height: 260px; } .sky-caption { left: 21px; right: 21px; } }
 @media (prefers-reduced-motion: reduce) { .cloud { animation: none; } .celestial { transition: none; } }
