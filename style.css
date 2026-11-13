@@ -65,7 +65,11 @@ nav a:hover, nav a[aria-current="location"] { background: var(--surface); color:
 .sun-icon, [data-theme="dark"] .moon-icon { display: none; }
 [data-theme="dark"] .sun-icon { display: block; }
 .hero { position: relative; isolation: isolate; width: min(1440px, calc(100% - 48px)); min-height: 610px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 92px 32px 90px; margin-top: 24px; overflow: hidden; border: 1px solid #ededeb; border-radius: 30px; background: #f8f7f4; color: #242529; text-align: center; --ink: #242529; --bg: #f8f7f4; --muted: #68686e; --faint: #727278; --strong-line: #cececf; --surface: #fff; }
-.hero::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 99% 0%, #a9c3f2b8, transparent 45%), radial-gradient(ellipse at 0% 100%, #edc5cf9c, transparent 42%), radial-gradient(ellipse at 53% 110%, #f0e8c675, transparent 45%); }
+.hero::before, .hero::after { content: ''; position: absolute; inset: -12%; z-index: -1; pointer-events: none; }
+.hero::before { background: radial-gradient(ellipse at 99% 0%, #a9c3f2b8, transparent 45%), radial-gradient(ellipse at 0% 100%, #edc5cf9c, transparent 42%), radial-gradient(ellipse at 53% 110%, #f0e8c675, transparent 45%); animation: hero-drift 24s ease-in-out infinite alternate; }
+.hero::after { background: radial-gradient(ellipse at 10% 15%, #c9b9ecb8, transparent 55%), radial-gradient(ellipse at 95% 85%, #b5dfd3b0, transparent 55%), radial-gradient(ellipse at 50% 100%, #f1d1b68c, transparent 50%); opacity: 0; animation: hero-tint 24s ease-in-out infinite alternate; }
+@keyframes hero-drift { to { transform: translate3d(-5%, 3%, 0) scale(1.1) rotate(-8deg); } }
+@keyframes hero-tint { to { opacity: .85; transform: translate3d(4%, -3%, 0) scale(1.08); } }
 h1 { max-width: 900px; font-size: clamp(52px, 5.6vw, 80px); font-weight: 500; letter-spacing: -3px; line-height: 1.22; text-wrap: balance; }
 .gradient-text { display: block; color: inherit; }
 .hero-intro { margin-top: 25px; font-size: 16px; line-height: 1.9; color: var(--muted); }
